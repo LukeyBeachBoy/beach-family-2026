@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beach Family 2026 Holiday Planner</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card-hover: #2d3a4f;
+    --accent: #3b82f6;
+    --accent2: #8b5cf6;
+    --accent3: #f59e0b;
+    --green: #22c55e;
+    --red: #ef4444;
+    --pink: #ec4899;
+    --cyan: #06b6d4;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --border: #334155;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+  }
+  
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  .hero {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 50%, #1a1a2e 100%);
+    padding: 60px 40px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(59,130,246,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(139,92,246,0.06) 0%, transparent 50%);
+  }
+  .hero h1 {
+    font-size: 2.8em; font-weight: 800;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    position: relative; margin-bottom: 8px;
+  }
+  .hero .subtitle { color: var(--muted); font-size: 1.1em; position: relative; }
+  .hero .family-emoji { font-size: 2em; margin-bottom: 16px; position: relative; }
+  
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+  
+  .key-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-bottom: 40px;
+  }
+  .key-info-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; text-align: center;
+  }
+  .key-info-card .emoji { font-size: 1.8em; margin-bottom: 8px; }
+  .key-info-card .label { color: var(--muted); font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; }
+  .key-info-card .value { font-size: 1.3em; font-weight: 700; margin-top: 4px; }
+  .key-info-card .detail { color: var(--muted); font-size: 0.85em; margin-top: 4px; }
+  
+  .timeline { position: relative; margin: 40px 0; }
+  .timeline::before {
+    content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--pink), var(--green));
+    border-radius: 3px;
+  }
+  .timeline-item {
+    position: relative; margin-left: 60px; margin-bottom: 24px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px; transition: all 0.2s ease; cursor: pointer;
+  }
+  .timeline-item:hover { background: var(--card-hover); border-color: var(--accent); transform: translateX(4px); }
+  .timeline-item::before {
+    content: attr(data-emoji); position: absolute; left: -48px; top: 24px;
+    width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.3em; background: var(--bg); border: 2px solid var(--accent); border-radius: 50%;
+  }
+  .timeline-item .month-badge {
+    display: inline-block; background: rgba(59,130,246,0.15); color: var(--accent);
+    font-weight: 600; font-size: 0.75em; padding: 4px 12px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .timeline-item h3 { font-size: 1.25em; font-weight: 700; margin-bottom: 4px; }
+  .timeline-item .dates { color: var(--muted); font-size: 0.9em; margin-bottom: 12px; }
+  .timeline-item .details { font-size: 0.9em; color: #cbd5e1; }
+  .timeline-item .details ul { padding-left: 20px; margin-top: 8px; }
+  .timeline-item .details li { margin-bottom: 4px; }
+  
+  .work-days-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; margin-top: 12px;
+  }
+  .work-days-badge.uses-days { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .work-days-badge.free { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .work-days-badge.paternity { background: rgba(139,92,246,0.15); color: #a78bfa; }
+  
+  .expandable { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .timeline-item.expanded .expandable { display: block; }
+  .expand-hint { color: var(--muted); font-size: 0.8em; margin-top: 8px; }
+  .timeline-item.expanded .expand-hint { display: none; }
+  
+  .section-header {
+    font-size: 1.6em; font-weight: 800; margin: 48px 0 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-header .line { flex: 1; height: 2px; background: linear-gradient(to right, var(--border), transparent); }
+  
+  .resort-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px; margin: 20px 0;
+  }
+  .resort-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px; transition: all 0.2s ease; position: relative;
+  }
+  .resort-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .resort-card .country-flag { font-size: 2em; margin-bottom: 8px; }
+  .resort-card h4 { font-size: 1.1em; font-weight: 700; margin-bottom: 4px; }
+  .resort-card h4 a { color: var(--text); }
+  .resort-card h4 a:hover { color: var(--accent); }
+  .resort-card .location { color: var(--accent); font-size: 0.85em; font-weight: 500; margin-bottom: 12px; }
+  .resort-card .features { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  .feature-tag {
+    background: rgba(59,130,246,0.1); color: #93c5fd;
+    font-size: 0.75em; padding: 4px 10px; border-radius: 12px; font-weight: 500;
+  }
+  .resort-card .price { font-size: 1.3em; font-weight: 700; color: var(--green); margin-top: 12px; }
+  .resort-card .price-note { color: var(--muted); font-size: 0.8em; }
+  .resort-card .flight-time {
+    display: inline-flex; align-items: center; gap: 4px;
+    color: var(--muted); font-size: 0.85em; margin-top: 8px;
+  }
+  .resort-card .ribbon {
+    position: absolute; top: 16px; right: 16px;
+    background: linear-gradient(135deg, var(--accent3), #d97706);
+    color: #000; font-size: 0.7em; font-weight: 700; padding: 4px 10px;
+    border-radius: 8px; text-transform: uppercase;
+  }
+  .resort-card .visit-link {
+    display: inline-flex; align-items: center; gap: 4px; margin-top: 10px;
+    font-size: 0.8em; color: var(--accent); font-weight: 500;
+  }
+  .resort-card .visit-link:hover { text-decoration: underline; }
+  
+  .budget-tracker {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px; margin: 32px 0;
+  }
+  .budget-bar-container {
+    background: #0f172a; border-radius: 12px; height: 40px;
+    margin: 20px 0; overflow: hidden; display: flex;
+  }
+  .budget-segment {
+    height: 100%; display: flex; align-items: center; justify-content: center;
+    font-size: 0.7em; font-weight: 600; color: white;
+    transition: all 0.3s ease; min-width: 0; overflow: hidden; white-space: nowrap;
+  }
+  .budget-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85em; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 4px; flex-shrink: 0; }
+  
+  .itinerary-grid { display: grid; gap: 8px; margin: 16px 0; }
+  .itin-day {
+    display: grid; grid-template-columns: 100px 1fr auto; gap: 12px; align-items: center;
+    padding: 12px 16px; background: rgba(15,23,42,0.5); border-radius: 10px; font-size: 0.9em;
+  }
+  .itin-day .day-label { color: var(--accent); font-weight: 600; font-size: 0.85em; }
+  .itin-day .stay-badge {
+    font-size: 0.75em; padding: 2px 8px; border-radius: 8px; font-weight: 500; white-space: nowrap;
+  }
+  .stay-andrew { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .stay-airbnb { background: rgba(236,72,153,0.15); color: #f472b6; }
+  .stay-travel { background: rgba(148,163,184,0.15); color: #94a3b8; }
+  
+  .voucher-card {
+    background: linear-gradient(135deg, #1a2744 0%, #1e3a5f 100%);
+    border: 1px dashed var(--accent); border-radius: 16px; padding: 24px;
+    margin: 20px 0; display: flex; gap: 20px; align-items: center;
+  }
+  .voucher-card .voucher-icon { font-size: 2.5em; }
+  .voucher-card .voucher-details h4 { color: var(--accent); font-weight: 700; }
+  .voucher-card .voucher-value { font-size: 1.8em; font-weight: 800; color: var(--green); }
+  
+  .priority-list { margin: 20px 0; }
+  .priority-item {
+    display: flex; align-items: center; gap: 16px; padding: 16px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    margin-bottom: 8px; transition: all 0.2s ease;
+  }
+  .priority-item:hover { border-color: var(--accent); }
+  .priority-num {
+    width: 36px; height: 36px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; font-weight: 800; font-size: 0.9em; flex-shrink: 0;
+  }
+  .priority-num.urgent { background: rgba(239,68,68,0.2); color: var(--red); }
+  .priority-num.soon { background: rgba(245,158,11,0.2); color: var(--accent3); }
+  .priority-num.later { background: rgba(34,197,94,0.2); color: var(--green); }
+  .priority-item .what { font-weight: 600; }
+  .priority-item .when { color: var(--muted); font-size: 0.85em; }
+  
+  .flags-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px; margin: 20px 0;
+  }
+  .flag-card {
+    display: flex; gap: 12px; padding: 16px; background: var(--card);
+    border-radius: 12px; border: 1px solid var(--border); font-size: 0.9em;
+  }
+  .flag-card .flag-emoji { font-size: 1.3em; flex-shrink: 0; }
+  
+  .tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
+  .tab {
+    padding: 8px 20px; border-radius: 10px; border: 1px solid var(--border);
+    background: transparent; color: var(--muted); font-size: 0.85em; font-weight: 500;
+    cursor: pointer; transition: all 0.2s ease; font-family: inherit;
+  }
+  .tab:hover { border-color: var(--accent); color: var(--text); }
+  .tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .booking-tip {
+    background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+    border-radius: 12px; padding: 16px 20px; margin: 20px 0; font-size: 0.9em;
+  }
+  .booking-tip strong { color: var(--accent3); }
+  
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 1.8em; }
+    .container { padding: 16px; }
+    .timeline::before { left: 18px; }
+    .timeline-item { margin-left: 44px; padding: 16px; }
+    .timeline-item::before { left: -38px; width: 28px; height: 28px; font-size: 1em; }
+    .resort-grid { grid-template-columns: 1fr; }
+    .itin-day { grid-template-columns: 80px 1fr; }
+    .itin-day .stay-badge { grid-column: 1 / -1; }
+    .voucher-card { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="family-emoji">👨‍👩‍👦 ✈️ 🌍</div>
+  <h1>Beach Family 2026</h1>
+  <div class="subtitle">Luke, Celine & Charlie's year of adventures — before baby girl arrives!</div>
+</div>
+
+<div class="container">
+
+  <!-- Key Info Cards -->
+  <div class="key-info">
+    <div class="key-info-card">
+      <div class="emoji">📅</div>
+      <div class="label">Holiday Allowance</div>
+      <div class="value">24 days</div>
+      <div class="detail">Plan uses 21 · <strong>3 buffer</strong></div>
+    </div>
+    <div class="key-info-card">
+      <div class="emoji">✈️</div>
+      <div class="label">Flying Cutoff</div>
+      <div class="value" style="color: var(--red);">11 June</div>
+      <div class="detail">27 weeks pregnant</div>
+    </div>
+    <div class="key-info-card">
+      <div class="emoji">👶</div>
+      <div class="label">Due Date</div>
+      <div class="value" style="color: var(--pink);">10 September</div>
+      <div class="detail">Baby girl!</div>
+    </div>
+    <div class="key-info-card">
+      <div class="emoji">🎫</div>
+      <div class="label">LeShuttle Voucher</div>
+      <div class="value" style="color: var(--green);">£198</div>
+      <div class="detail">Use for July trip (peak)</div>
+    </div>
+  </div>
+
+  <!-- BUDGET TRACKER -->
+  <div class="section-header">📊 Holiday Budget Tracker <span class="line"></span></div>
+  
+  <div class="budget-tracker">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+      <div style="font-size: 1.1em; font-weight: 600;">24 days total allowance</div>
+      <div style="color: var(--green); font-weight: 700;">3 days buffer ✅</div>
+    </div>
+    <div class="budget-bar-container">
+      <div class="budget-segment" style="width: 8.3%; background: #6366f1;" title="Easter: 2 days">🐣 2</div>
+      <div class="budget-segment" style="width: 20.8%; background: #3b82f6;" title="Beach: 5 days">🏖️ 5</div>
+      <div class="budget-segment" style="width: 25%; background: #8b5cf6;" title="UK July: 6 days">🇬🇧 6</div>
+      <div class="budget-segment" style="width: 8.3%; background: #f59e0b;" title="Crèche: 2 days">🎈 2</div>
+      <div class="budget-segment" style="width: 20.8%; background: #ec4899;" title="UK Nov: 5 days">👶 5</div>
+      <div class="budget-segment" style="width: 4.2%; background: #22c55e;" title="Belgium: 1 day">🇧🇪 1</div>
+      <div class="budget-segment" style="width: 12.5%; background: #1e293b; border: 1px dashed #475569;" title="Buffer: 3 days">💰 3</div>
+    </div>
+    <div class="budget-legend">
+      <div class="legend-item"><div class="legend-dot" style="background: #6366f1;"></div> Easter (2 work days)</div>
+      <div class="legend-item"><div class="legend-dot" style="background: #3b82f6;"></div> Beach Holiday (5 work days)</div>
+      <div class="legend-item"><div class="legend-dot" style="background: #8b5cf6;"></div> UK July Trip (6 work days)</div>
+      <div class="legend-item"><div class="legend-dot" style="background: #f59e0b;"></div> Crèche Closure (2 work days)</div>
+      <div class="legend-item"><div class="legend-dot" style="background: #ec4899;"></div> UK Baby Tour (5 work days)</div>
+      <div class="legend-item"><div class="legend-dot" style="background: #22c55e;"></div> Belgium Day Trip (1 work day)</div>
+      <div class="legend-item"><div class="legend-dot" style="background: transparent; border: 1px dashed #475569;"></div> Buffer (3 spare!)</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-header">🗓️ The Master Timeline <span class="line"></span></div>
+
+  <div class="timeline">
+    
+    <!-- Easter -->
+    <div class="timeline-item" data-emoji="🐣" onclick="this.classList.toggle('expanded')">
+      <div class="month-badge">April</div>
+      <h3>Easter Family Break</h3>
+      <div class="dates">Fri 3 Apr → Wed 8 Apr · 6 days off</div>
+      <div class="details">Extended Easter weekend covering crèche closure. Already have 3 Apr booked off.</div>
+      <span class="work-days-badge uses-days">📋 2 work days to book off (7 + 8 Apr)</span>
+      <div class="expand-hint">▸ Click for details</div>
+      <div class="expandable">
+        <ul>
+          <li><strong>Fri 3 Apr</strong> — ✅ Already booked off work</li>
+          <li><strong>Sat 4 – Sun 5 Apr</strong> — Weekend (Easter Sunday)</li>
+          <li><strong>Mon 6 Apr</strong> — 🇧🇪 Easter Monday (public holiday)</li>
+          <li><strong>Tue 7 Apr</strong> — ⚠️ Yellow/pending — confirm!</li>
+          <li><strong>Wed 8 Apr</strong> — 📋 Book off (crèche closed)</li>
+        </ul>
+        <p style="margin-top: 12px; color: var(--muted);">
+          <strong>Activity ideas:</strong> Plopsaland De Panne 🎢 · Bruges day trip 🍫 · Easter egg hunt 🥚
+        </p>
+      </div>
+    </div>
+
+    <!-- Ascension -->
+    <div class="timeline-item" data-emoji="⛰️" onclick="this.classList.toggle('expanded')">
+      <div class="month-badge">May</div>
+      <h3>Ascension Long Weekend</h3>
+      <div class="dates">Thu 14 May → Sun 17 May · 4 days off</div>
+      <div class="details">14 May = Ascension (public holiday), 15 May already booked. Free 4-day weekend!</div>
+      <span class="work-days-badge free">✅ 0 work days to book — already sorted!</span>
+      <div class="expand-hint">▸ Click for ideas</div>
+      <div class="expandable">
+        <p><strong>Suggestion: Weekend in the Ardennes</strong></p>
+        <ul>
+          <li>Stay in <strong>Durbuy</strong> (smallest city in the world!) — 2 nights</li>
+          <li>Kayaking on the Ourthe river 🛶</li>
+          <li>Adventure park, walking trails</li>
+          <li>Alternative: Center Parcs Les Ardennes</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Whit -->
+    <div class="timeline-item" data-emoji="🌊">
+      <div class="month-badge">May</div>
+      <h3>Whit Monday Long Weekend</h3>
+      <div class="dates">Sat 23 May → Mon 25 May · 3 days off</div>
+      <div class="details">25 May = Whit Monday (public holiday). Rest up before the big beach trip!</div>
+      <span class="work-days-badge free">✅ Public holiday — no work!</span>
+    </div>
+
+    <!-- Beach Holiday -->
+    <div class="timeline-item" data-emoji="🌴" onclick="this.classList.toggle('expanded')" style="border-color: var(--accent);">
+      <div class="month-badge" style="background: rgba(34,197,94,0.15); color: var(--green);">May–June · THE BIG ONE</div>
+      <h3>🏖️ All-Inclusive Beach Holiday</h3>
+      <div class="dates">Sat 30 May → Sun 7 Jun · 9 days away</div>
+      <div class="details">
+        Family getaway! Celine 25–26 weeks — comfortable & within flying limit.
+        Anniversary (3 Jun) falls mid-trip — celebrate on the beach! 🥂❤️
+      </div>
+      <span class="work-days-badge uses-days">📋 5 work days to book off (Mon 1 – Fri 5 Jun)</span>
+      <div class="expand-hint">▸ Click for details</div>
+      <div class="expandable">
+        <p style="margin-bottom: 12px;">Option to stretch to 10 days (Fri 29 May – Sun 7 Jun) = 6 work days off.</p>
+        <p style="color: var(--accent3);">⚠️ Celine will need a <strong>fit-to-fly letter</strong> from her doctor — arrange mid-May.</p>
+        <p style="margin-top: 8px; color: var(--muted);">📦 Book via <strong>TUI.be</strong>, <strong>Sunweb.be</strong>, or <strong>Corendon</strong> in <strong>incognito/private browsing</strong>. See resort options below! ↓</p>
+      </div>
+    </div>
+
+    <!-- Anniversary -->
+    <div class="timeline-item" data-emoji="❤️">
+      <div class="month-badge" style="background: rgba(236,72,153,0.15); color: var(--pink);">June</div>
+      <h3>Anniversary — On the Beach!</h3>
+      <div class="dates">Wed 3 Jun</div>
+      <div class="details">Falls mid-holiday. Book a romantic dinner at the resort! Also Hilde's birthday — send a message 🎂</div>
+      <span class="work-days-badge free">🌴 You'll be on holiday!</span>
+    </div>
+
+    <!-- UK Trip -->
+    <div class="timeline-item" data-emoji="🇬🇧" onclick="this.classList.toggle('expanded')" style="border-color: var(--accent2);">
+      <div class="month-badge" style="background: rgba(139,92,246,0.15); color: var(--accent2);">July · BIG TRIP</div>
+      <h3>UK Trip — BBQ, Family & Friends</h3>
+      <div class="dates">Fri 10 Jul → Fri 17 Jul · 8 days away</div>
+      <div class="details">
+        Drive via LeShuttle (use the £198 voucher!). 4 nights at Andrew's → 2 nights Airbnb → drive home.
+        BBQ on Sat 11th. Dad at the BBQ. Danny reserve day if he can't make it.
+      </div>
+      <span class="work-days-badge uses-days">📋 6 work days to book off (10, 13, 14, 15, 16, 17 Jul)</span>
+      <div class="expand-hint">▸ Click for full itinerary</div>
+      <div class="expandable">
+        <div class="itinerary-grid">
+          <div class="itin-day">
+            <span class="day-label">Fri 10 Jul</span>
+            <span>🚗 Drive to UK via LeShuttle. Arrive evening.</span>
+            <span class="stay-badge stay-andrew">Andrew's</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Sat 11 Jul</span>
+            <span>🥩 <strong>Uncle Andrew's BBQ!</strong> Dad there. Invite Danny!</span>
+            <span class="stay-badge stay-andrew">Andrew's</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Sun 12 Jul</span>
+            <span>Visit <strong>Mum in Milton Keynes</strong> (~15 min). Chill day.</span>
+            <span class="stay-badge stay-andrew">Andrew's</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Mon 13 Jul</span>
+            <span>🦁 <strong>Woburn Safari Park</strong> with Charlie (20 min!) or Danny reserve day</span>
+            <span class="stay-badge stay-andrew">Andrew's</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Tue 14 Jul</span>
+            <span>🏡 Move to <strong>Airbnb</strong> (St Albans / Watford area). Settle in.</span>
+            <span class="stay-badge stay-airbnb">Airbnb</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Wed 15 Jul</span>
+            <span>Explore St Albans — Roman ruins, Verulamium Park 🏛️ · Or see Danny</span>
+            <span class="stay-badge stay-airbnb">Airbnb</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Thu 16 Jul</span>
+            <span>Relax, local exploring, pack up</span>
+            <span class="stay-badge stay-airbnb">Airbnb</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Fri 17 Jul</span>
+            <span>🚗 Drive home to Belgium via LeShuttle</span>
+            <span class="stay-badge stay-travel">Travel</span>
+          </div>
+        </div>
+        <div class="voucher-card">
+          <div class="voucher-icon">🎫</div>
+          <div class="voucher-details">
+            <h4>LeShuttle Credit Voucher</h4>
+            <div class="voucher-value">£198</div>
+            <div style="color: var(--muted); font-size: 0.85em;">
+              Voucher CV0291935 · Valid until 11 Jan 2027<br>
+              Covers peak summer return (~£200–300). Best value to use here!<br>
+              <span style="color: var(--accent3);">💡 Book via Club LeShuttle online to avoid £20 phone fee.</span>
+            </div>
+          </div>
+        </div>
+        <p style="color: var(--muted); font-size: 0.85em;">
+          <strong>Airbnb:</strong> 2 nights in St Albans or Watford area, ~£120–180/night for a 2-bed. 
+          Close to Danny. No return to Andrew's after this.
+        </p>
+      </div>
+    </div>
+
+    <!-- Belgian National Day -->
+    <div class="timeline-item" data-emoji="🇧🇪">
+      <div class="month-badge">July</div>
+      <h3>Belgian National Day</h3>
+      <div class="dates">Mon 21 Jul</div>
+      <div class="details">Public holiday — rest and unpack after UK trip! Back since Friday 17th.</div>
+      <span class="work-days-badge free">✅ Public holiday — no work!</span>
+    </div>
+
+    <!-- Crèche closure -->
+    <div class="timeline-item" data-emoji="🎈" onclick="this.classList.toggle('expanded')">
+      <div class="month-badge" style="background: rgba(245,158,11,0.15); color: var(--accent3);">July</div>
+      <h3>Crèche Closure — Charlie Days!</h3>
+      <div class="dates">Mon 27 → Wed 29 Jul · 3 days</div>
+      <div class="details">Crèche closed. Take 2 days off, try to arrange cover for 1 day to save buffer.</div>
+      <span class="work-days-badge uses-days">📋 2 work days to book off (get cover for 1)</span>
+      <div class="expand-hint">▸ Click for activity ideas</div>
+      <div class="expandable">
+        <ul>
+          <li><strong>Mon 27:</strong> 🎢 Plopsaland or Boudewijn Seapark (Bruges)</li>
+          <li><strong>Tue 28:</strong> 🏖️ Belgian coast — sandcastles! It's Buggle's bday on 26th 🐶</li>
+          <li><strong>Wed 29:</strong> Arrange grandparent cover, or chill day at home</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Rest & Nest -->
+    <div class="timeline-item" data-emoji="🤰">
+      <div class="month-badge" style="background: rgba(236,72,153,0.15); color: var(--pink);">August</div>
+      <h3>Rest & Nest</h3>
+      <div class="dates">All of August</div>
+      <div class="details">
+        No trips. Celine 35–39 weeks. Nursery prep, freezer meals, enjoy the last weeks as three.
+        15 Aug = Assumption (public holiday). Dad's birthday 22 Aug — call him! 🎂
+      </div>
+      <span class="work-days-badge free">🏠 Stay home & prepare</span>
+    </div>
+
+    <!-- Baby -->
+    <div class="timeline-item" data-emoji="👶" style="border-color: var(--pink);">
+      <div class="month-badge" style="background: rgba(236,72,153,0.15); color: var(--pink);">September</div>
+      <h3>Baby Girl Arrives! 🎀</h3>
+      <div class="dates">~Thu 10 September</div>
+      <div class="details">The big day! Belgian paternity leave: 20 working days within 4 months of birth.</div>
+      <span class="work-days-badge paternity">👨‍🍼 Paternity leave — doesn't use holiday!</span>
+    </div>
+
+    <!-- UK Baby Tour -->
+    <div class="timeline-item" data-emoji="🍼" onclick="this.classList.toggle('expanded')" style="border-color: var(--pink);">
+      <div class="month-badge" style="background: rgba(236,72,153,0.15); color: var(--pink);">Oct–Nov · BABY TOUR</div>
+      <h3>UK Baby Tour — Meet the Family!</h3>
+      <div class="dates">Mon 26 Oct → Sat 1 Nov · 7 days away</div>
+      <div class="details">
+        Baby ~7 weeks old. Drive via LeShuttle. Very relaxed — one visit per day max. 
+        Everyone meets the new addition!
+      </div>
+      <span class="work-days-badge uses-days">📋 5 work days to book off (Mon 26 – Fri 30 Oct)</span>
+      <div class="expand-hint">▸ Click for itinerary</div>
+      <div class="expandable">
+        <div class="itinerary-grid">
+          <div class="itin-day">
+            <span class="day-label">Mon 26 Oct</span>
+            <span>🚗 Drive to UK via LeShuttle</span>
+            <span class="stay-badge stay-andrew">Andrew's</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Tue 27 Oct</span>
+            <span>Rest. Everyone meets baby at Andrew's! 🍼 Kim's bday too 🎂</span>
+            <span class="stay-badge stay-andrew">Andrew's</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Wed 28 Oct</span>
+            <span>Visit <strong>Mum in Milton Keynes</strong> — tea & cuddles</span>
+            <span class="stay-badge stay-andrew">Andrew's</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Thu 29 Oct</span>
+            <span>Visit <strong>Dad in Hemel Hempstead</strong></span>
+            <span class="stay-badge stay-andrew">Andrew's</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Fri 30 Oct</span>
+            <span>See <strong>Danny in Watford</strong> — lunch. Or rest day.</span>
+            <span class="stay-badge stay-andrew">Andrew's</span>
+          </div>
+          <div class="itin-day">
+            <span class="day-label">Sat 31 Oct</span>
+            <span>🚗 Drive home. Halloween! 🎃</span>
+            <span class="stay-badge stay-travel">Travel</span>
+          </div>
+        </div>
+        <p style="margin-top: 12px; color: var(--muted);">
+          <strong>Key:</strong> One visit per day max 🐌 · Invite people TO Andrew's · 
+          Baby feeds & naps dictate everything · Your birthday is 2 Nov 🎂
+        </p>
+      </div>
+    </div>
+
+    <!-- Birthday -->
+    <div class="timeline-item" data-emoji="🎂">
+      <div class="month-badge">November</div>
+      <h3>Luke's Birthday!</h3>
+      <div class="dates">Mon 2 November</div>
+      <div class="details">Day after getting back. Use 1 buffer day? You deserve it! 🎉</div>
+      <span class="work-days-badge uses-days">📋 1 buffer day (optional)</span>
+    </div>
+
+  </div>
+
+  <!-- RESORT OPTIONS -->
+  <div class="section-header">🏨 Beach Holiday — Resort Options <span class="line"></span></div>
+  
+  <p style="color: var(--muted); margin-bottom: 8px;">
+    Family resorts with <strong>kids clubs, water parks, splash parks & entertainment</strong>. 2–3h flight from Brussels. Safe destinations only.
+  </p>
+  <div class="booking-tip">
+    <strong>🔒 Booking tip:</strong> These links go to the resort's own website (safe to browse — no price tracking). 
+    When ready to actually book, search <strong>TUI.be</strong> or <strong>Sunweb.be</strong> in <strong>incognito/private mode</strong> for best package prices.
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('spain')">🇪🇸 Spain</button>
+    <button class="tab" onclick="showTab('greece')">🇬🇷 Greece</button>
+    <button class="tab" onclick="showTab('portugal')">🇵🇹 Portugal</button>
+    <button class="tab" onclick="showTab('italy')">🇮🇹 Italy</button>
+    <button class="tab" onclick="showTab('other')">🌍 More</button>
+  </div>
+
+  <!-- SPAIN -->
+  <div id="tab-spain" class="tab-content active">
+    <div class="resort-grid">
+      <div class="resort-card">
+        <div class="ribbon">Top Pick</div>
+        <div class="country-flag">🇪🇸</div>
+        <h4><a href="https://www.zafirohotels.com/en/hotels/mallorca/zafiro-palace-alcudia/" target="_blank" rel="noopener">Zafiro Palace Alcudia</a></h4>
+        <div class="location">Alcudia, Mallorca · 2h flight</div>
+        <div class="features">
+          <span class="feature-tag">🏊 Huge Pool Complex</span>
+          <span class="feature-tag">👶 Kids Club 3+</span>
+          <span class="feature-tag">🎢 Water Slides</span>
+          <span class="feature-tag">🏖️ Shallowest Beach</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          4* resort near Alcudia Bay — the beach is incredibly shallow (100m+ wading depth), perfect for toddlers. 
+          Massive pool area with slides. Kids club from age 3. No party scene here — pure family area.
+        </div>
+        <div class="price">€2,800–€4,000</div>
+        <div class="price-note">Family of 3 · AI · 8 nights via TUI/Sunweb</div>
+        <div class="flight-time">✈️ ~2h from Brussels</div>
+        <a href="https://www.zafirohotels.com/en/hotels/mallorca/zafiro-palace-alcudia/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+
+      <div class="resort-card">
+        <div class="country-flag">🇪🇸</div>
+        <h4><a href="https://www.iberostar.com/en/hotels/mallorca/iberostar-selection-alcudia-park/" target="_blank" rel="noopener">Iberostar Selection Alcudia Park</a></h4>
+        <div class="location">Alcudia, Mallorca · 2h flight</div>
+        <div class="features">
+          <span class="feature-tag">🌊 Splash Park</span>
+          <span class="feature-tag">🎪 Star Camp Kids</span>
+          <span class="feature-tag">🎭 Mini Disco</span>
+          <span class="feature-tag">🏖️ Beach Access</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Family-focused 4* with Star Camp kids programme. Splash park, evening entertainment, 
+          mini disco. Short walk to Alcudia beach. Iberostar = reliable quality.
+        </div>
+        <div class="price">€3,000–€4,200</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~2h from Brussels</div>
+        <a href="https://www.iberostar.com/en/hotels/mallorca/iberostar-selection-alcudia-park/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+
+      <div class="resort-card">
+        <div class="country-flag">🇪🇸</div>
+        <h4><a href="https://www.universalhotels.es/en/hotel-port-aventura-gold-river" target="_blank" rel="noopener">PortAventura Hotel Gold River</a></h4>
+        <div class="location">PortAventura World, Tarragona · 2h flight</div>
+        <div class="features">
+          <span class="feature-tag">🎢 Theme Park Access</span>
+          <span class="feature-tag">🌊 Caribe Water Park</span>
+          <span class="feature-tag">👶 SésamoAventura</span>
+          <span class="feature-tag">🏊 Pools</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Stay IN PortAventura! Unlimited theme park + Caribe Aquatic Park access. SésamoAventura area is 
+          perfect for toddlers. NOT in Salou town — completely self-contained resort. 
+        </div>
+        <div class="price">€2,500–€3,800</div>
+        <div class="price-note">Family of 3 · HB + park · 8 nights</div>
+        <div class="flight-time">✈️ ~2h to Reus/Barcelona</div>
+        <a href="https://www.portaventuraworld.com/en/hotels" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- GREECE -->
+  <div id="tab-greece" class="tab-content">
+    <div class="resort-grid">
+      <div class="resort-card">
+        <div class="ribbon">Best Water Park</div>
+        <div class="country-flag">🇬🇷</div>
+        <h4><a href="https://www.grecotel.com/marine-palace-aqua-park/" target="_blank" rel="noopener">Grecotel Marine Palace & Aqua Park</a></h4>
+        <div class="location">Panormo, Crete · 3h flight</div>
+        <div class="features">
+          <span class="feature-tag">🎢 On-Site Water Park</span>
+          <span class="feature-tag">👶 Toddler Splash Zone</span>
+          <span class="feature-tag">🏖️ Private Beach</span>
+          <span class="feature-tag">🎭 Entertainment</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Amazing on-site water park with aqua towers & rides. Separate toddler splash zone with mini slides, 
+          fountains & tipping buckets. Private beach. Family bungalows available.
+        </div>
+        <div class="price">€2,500–€3,800</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~3h from Brussels</div>
+        <a href="https://www.grecotel.com/marine-palace-aqua-park/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+
+      <div class="resort-card">
+        <div class="country-flag">🇬🇷</div>
+        <h4><a href="https://www.atlanticahotels.com/hotels/atlantica-aegean-blue" target="_blank" rel="noopener">Atlantica Aegean Blue</a></h4>
+        <div class="location">Rhodes · 3h flight</div>
+        <div class="features">
+          <span class="feature-tag">🎢 Water Park</span>
+          <span class="feature-tag">👶 Baby Area (8m+)</span>
+          <span class="feature-tag">🧸 Crèche</span>
+          <span class="feature-tag">🏖️ Beachfront</span>
+          <span class="feature-tag">🎭 Mini Disco</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Lagoon pool + water park with separate baby area (8 months–3 years!). 
+          Crèche, soft play, playground, mini disco. Beachfront.
+        </div>
+        <div class="price">€2,400–€3,500</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~3h from Brussels</div>
+        <a href="https://www.atlanticahotels.com/hotels/atlantica-aegean-blue" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+
+      <div class="resort-card">
+        <div class="country-flag">🇬🇷</div>
+        <h4><a href="https://www.stellapalace.gr/" target="_blank" rel="noopener">Stella Palace Aqua Park Resort</a></h4>
+        <div class="location">Hersonissos, Crete · 3h flight</div>
+        <div class="features">
+          <span class="feature-tag">🎢 Huge Water Park</span>
+          <span class="feature-tag">👶 Kids Club</span>
+          <span class="feature-tag">🛝 Playground</span>
+          <span class="feature-tag">🏖️ Near Beach</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          One of the best kids clubs in Crete! Huge aqua park with rides + sister hotel splash park access. 
+          Stunning playroom, playground, great food.
+        </div>
+        <div class="price">€2,600–€3,800</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~3h from Brussels</div>
+        <a href="https://www.stellapalace.gr/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+
+      <div class="resort-card">
+        <div class="country-flag">🇬🇷</div>
+        <h4><a href="https://www.bluelagoonresort.gr/" target="_blank" rel="noopener">Blue Lagoon Resort</a></h4>
+        <div class="location">Kos · 3h flight</div>
+        <div class="features">
+          <span class="feature-tag">🏴‍☠️ Adventure Land</span>
+          <span class="feature-tag">🧸 Soft Play</span>
+          <span class="feature-tag">🛝 Playground</span>
+          <span class="feature-tag">🏖️ Sea Views</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Adventure Land splash park with slides, soft play, playground. Overlooks Aegean Sea. 
+          Swim-up rooms available. Hugely popular with families.
+        </div>
+        <div class="price">€2,300–€3,400</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~3h from Brussels</div>
+        <a href="https://www.bluelagoonresort.gr/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTUGAL -->
+  <div id="tab-portugal" class="tab-content">
+    <div class="resort-grid">
+      <div class="resort-card">
+        <div class="ribbon">Foodie Pick</div>
+        <div class="country-flag">🇵🇹</div>
+        <h4><a href="https://www.realhotelsgroup.com/en/grande-real-santa-eulalia-resort-hotel-spa" target="_blank" rel="noopener">Grande Real Santa Eulalia</a></h4>
+        <div class="location">Albufeira, Algarve · 2.5h flight</div>
+        <div class="features">
+          <span class="feature-tag">👶 Kids Pool</span>
+          <span class="feature-tag">🧸 Kids Club</span>
+          <span class="feature-tag">🏖️ Beach Access</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+          <span class="feature-tag">🍷 Amazing Food</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Family suites, kids pool, near Albufeira Old Town. Stunning Algarve coastline, 
+          incredible food. More relaxed vibe than Spain/Greece.
+        </div>
+        <div class="price">€2,500–€3,800</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~2.5h from Brussels</div>
+        <a href="https://www.realhotelsgroup.com/en/grande-real-santa-eulalia-resort-hotel-spa" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+
+      <div class="resort-card">
+        <div class="country-flag">🇵🇹</div>
+        <h4><a href="https://www.aquashowparkhotel.com/en/" target="_blank" rel="noopener">Aquashow Park Hotel</a></h4>
+        <div class="location">Quarteira, Algarve · 2.5h flight</div>
+        <div class="features">
+          <span class="feature-tag">🎢 Aquashow Water Park</span>
+          <span class="feature-tag">🦈 Shark Tunnel</span>
+          <span class="feature-tag">👶 Kids Area</span>
+          <span class="feature-tag">🏊 Pools</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Hotel attached to one of Portugal's biggest water parks! Unlimited park access. 
+          Shark tunnel, wave pool, toddler zones. 10 min from Vilamoura.
+        </div>
+        <div class="price">€2,200–€3,200</div>
+        <div class="price-note">Family of 3 · HB + park · 8 nights</div>
+        <div class="flight-time">✈️ ~2.5h from Brussels</div>
+        <a href="https://www.aquashowparkhotel.com/en/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ITALY -->
+  <div id="tab-italy" class="tab-content">
+    <div class="resort-grid">
+      <div class="resort-card">
+        <div class="ribbon">Premium</div>
+        <div class="country-flag">🇮🇹</div>
+        <h4><a href="https://www.fortevillageresort.com/en/" target="_blank" rel="noopener">Forte Village Resort</a></h4>
+        <div class="location">Santa Margherita di Pula, Sardinia · 2h flight</div>
+        <div class="features">
+          <span class="feature-tag">👶 Children's Wonderland</span>
+          <span class="feature-tag">🏊 10+ Pools</span>
+          <span class="feature-tag">🏖️ Private Beach</span>
+          <span class="feature-tag">🍝 20+ Restaurants</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          World-famous luxury family resort. "Children's Wonderland" with toddler areas, mini club, water park. 
+          10+ pools, private beach, 20+ restaurants. The premium option.
+        </div>
+        <div class="price">€3,500–€5,500</div>
+        <div class="price-note">Family of 3 · HB · 8 nights (higher end)</div>
+        <div class="flight-time">✈️ ~2h from Brussels</div>
+        <a href="https://www.fortevillageresort.com/en/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+
+      <div class="resort-card">
+        <div class="country-flag">🇮🇹</div>
+        <h4><a href="https://www.voihotels.com/en/resort/voi-arenella-resort" target="_blank" rel="noopener">VOI Arenella Resort</a></h4>
+        <div class="location">Syracuse, Sicily · 2.5h flight</div>
+        <div class="features">
+          <span class="feature-tag">👶 Mini Club</span>
+          <span class="feature-tag">🏊 Pools</span>
+          <span class="feature-tag">🏖️ Private Beach</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+          <span class="feature-tag">🎭 Animation</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          All-inclusive on Sicily's stunning southeast coast. Mini club, pools, private beach, 
+          Italian animation team. The food is incredible — it's Sicily!
+        </div>
+        <div class="price">€2,400–€3,600</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~2.5h from Brussels</div>
+        <a href="https://www.voihotels.com/en/resort/voi-arenella-resort" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTHER -->
+  <div id="tab-other" class="tab-content">
+    <div class="resort-grid">
+      <div class="resort-card">
+        <div class="ribbon">Best for Babies</div>
+        <div class="country-flag">🇭🇷</div>
+        <h4><a href="https://www.falkensteiner.com/en/hotel/funimation-borik" target="_blank" rel="noopener">Falkensteiner Club Funimation Borik</a></h4>
+        <div class="location">Zadar, Croatia · 2h flight</div>
+        <div class="features">
+          <span class="feature-tag">🎢 Aqua Park</span>
+          <span class="feature-tag">👶 Falky Land (0–3)</span>
+          <span class="feature-tag">🏖️ Beach</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Austrian-run family resort on Croatia's coast. "Falky Land" has dedicated 0–3 area with 
+          soft play, splash pool, supervision. Crystal-clear Adriatic.
+        </div>
+        <div class="price">€2,300–€3,500</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~2h from Brussels</div>
+        <a href="https://www.falkensteiner.com/en/hotel/funimation-borik" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+
+      <div class="resort-card">
+        <div class="country-flag">🇲🇹</div>
+        <h4><a href="https://www.dbhotelsresorts.com/seabank-hotel" target="_blank" rel="noopener">db Seabank Resort & Spa</a></h4>
+        <div class="location">Mellieħa, Malta · 2.5h flight</div>
+        <div class="features">
+          <span class="feature-tag">🏊 3 Pools</span>
+          <span class="feature-tag">👶 Kids Club</span>
+          <span class="feature-tag">🏖️ Near Beach</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+          <span class="feature-tag">🇬🇧 English</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Malta: safe, English-speaking, warm. Near Mellieħa Bay — most family-friendly beach 
+          in Malta (shallow, sandy). Kids club, 3 pools. Good value.
+        </div>
+        <div class="price">€2,000–€3,000</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~2.5h from Brussels</div>
+        <a href="https://www.dbhotelsresorts.com/seabank-hotel" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+
+      <div class="resort-card">
+        <div class="country-flag">🇨🇾</div>
+        <h4><a href="https://www.atlanticahotels.com/hotels/atlantica-aeneas-resort" target="_blank" rel="noopener">Atlantica Aeneas Resort</a></h4>
+        <div class="location">Ayia Napa, Cyprus · 4h flight</div>
+        <div class="features">
+          <span class="feature-tag">🎢 Water Slides</span>
+          <span class="feature-tag">👶 Kids Club</span>
+          <span class="feature-tag">🏖️ Sandy Beach</span>
+          <span class="feature-tag">🍕 All-Inclusive</span>
+        </div>
+        <div style="font-size: 0.85em; color: #cbd5e1; margin-top: 8px;">
+          Cyprus: safe, warm, English spoken. Water slides, kids club, Nissi Beach nearby. 
+          Slightly longer flight (4h) but stunning destination.
+        </div>
+        <div class="price">€2,500–€3,800</div>
+        <div class="price-note">Family of 3 · AI · 8 nights</div>
+        <div class="flight-time">✈️ ~4h from Brussels (longer)</div>
+        <a href="https://www.atlanticahotels.com/hotels/atlantica-aeneas-resort" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+      </div>
+    </div>
+    <p style="color: var(--muted); font-size: 0.85em; margin-top: 12px;">
+      ⚠️ <strong>Safety note:</strong> Turkey, Tunisia, Egypt and areas near conflict zones excluded. All destinations are safe, stable EU/EEA countries.
+    </p>
+  </div>
+
+  <!-- LESHUTTLE VOUCHER -->
+  <div class="section-header">🎫 LeShuttle Voucher Strategy <span class="line"></span></div>
+  
+  <div class="voucher-card">
+    <div class="voucher-icon">🎫</div>
+    <div class="voucher-details">
+      <h4>LeShuttle Credit Voucher CV0291935</h4>
+      <div class="voucher-value">£198</div>
+      <div style="color: var(--muted); font-size: 0.9em; margin-top: 8px;">
+        Valid until <strong>11 January 2027</strong> · Book via Club LeShuttle online to avoid £20 phone fee
+      </div>
+    </div>
+  </div>
+  <div style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; font-size: 0.9em;">
+    <p><strong>Best strategy: Use for the July UK trip</strong> (peak summer = most expensive)</p>
+    <ul style="padding-left: 20px; margin-top: 8px; color: #cbd5e1;">
+      <li>July peak return: ~£200–300 → <strong>voucher covers it!</strong></li>
+      <li>October off-peak: ~£100–150 → cheaper to just pay</li>
+      <li>💡 Book via Club LeShuttle account online to avoid creation fee</li>
+    </ul>
+  </div>
+
+  <!-- BOOKING PRIORITY -->
+  <div class="section-header">🔴 Booking Priority <span class="line"></span></div>
+  
+  <div class="priority-list">
+    <div class="priority-item">
+      <div class="priority-num urgent">1</div>
+      <div>
+        <div class="what">📞 Confirm 7 Apr + Book 8 Apr off work</div>
+        <div class="when">⏰ Do it TODAY — Easter is in 9 days!</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num urgent">2</div>
+      <div>
+        <div class="what">🏖️ Book beach holiday (browse resorts above, then TUI.be in incognito)</div>
+        <div class="when">⏰ This week! 9 weeks away. Packages sell fast.</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num urgent">3</div>
+      <div>
+        <div class="what">📋 Submit Jun + Jul holiday blocks to employer</div>
+        <div class="when">⏰ April — give proper notice</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num soon">4</div>
+      <div>
+        <div class="what">🚗 Book LeShuttle for July (use voucher via Club account)</div>
+        <div class="when">📅 April–May — peak prices rise</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num soon">5</div>
+      <div>
+        <div class="what">🏡 Book Airbnb (St Albans/Watford, 14–16 Jul, 2 nights)</div>
+        <div class="when">📅 May — summer places fill up</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num soon">6</div>
+      <div>
+        <div class="what">📄 Arrange Celine's fit-to-fly letter</div>
+        <div class="when">📅 Mid-May — doctor appointment before beach trip</div>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num later">7</div>
+      <div>
+        <div class="what">🚗 Book LeShuttle for October UK trip</div>
+        <div class="when">📅 September — off-peak, less urgent</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLAGS -->
+  <div class="section-header">⚠️ Calendar Conflicts & Notes <span class="line"></span></div>
+  
+  <div class="flags-grid">
+    <div class="flag-card">
+      <div class="flag-emoji">❤️</div>
+      <div><strong>3 Jun — Anniversary</strong><br>During beach holiday — celebrate on the beach! 🥂</div>
+    </div>
+    <div class="flag-card">
+      <div class="flag-emoji">🎂</div>
+      <div><strong>3 Jun — Hilde's Birthday</strong><br>Same day. Send a message from poolside!</div>
+    </div>
+    <div class="flag-card">
+      <div class="flag-emoji">🐶</div>
+      <div><strong>26 Jul — Buggle's Birthday</strong><br>Back from UK ✅ Day before crèche closure.</div>
+    </div>
+    <div class="flag-card">
+      <div class="flag-emoji">🎂</div>
+      <div><strong>22 Aug — Dad's Birthday</strong><br>Celine ~37 weeks. Video call!</div>
+    </div>
+    <div class="flag-card">
+      <div class="flag-emoji">🎂</div>
+      <div><strong>27 Oct — Kim's Birthday</strong><br>During UK baby tour. Nice timing!</div>
+    </div>
+    <div class="flag-card">
+      <div class="flag-emoji">🎉</div>
+      <div><strong>2 Nov — Luke's Birthday!</strong><br>Day after UK return. Use 1 buffer day? 🎂</div>
+    </div>
+  </div>
+
+  <div style="text-align: center; padding: 60px 0 20px; color: var(--muted); font-size: 0.85em;">
+    Made with ❤️ by Craft Agent · March 2026<br>
+    <span style="font-size: 0.9em;">Here's to an amazing year, Beach family! 🌴👨‍👩‍👦👶</span>
+  </div>
+
+</div>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
