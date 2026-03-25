@@ -129,7 +129,7 @@
   }
   .resort-card {
     background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-    padding: 24px; transition: all 0.2s ease; position: relative;
+    padding: 24px; overflow: hidden; transition: all 0.2s ease; position: relative;
   }
   .resort-card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .resort-card .country-flag { font-size: 2em; margin-bottom: 8px; }
@@ -159,6 +159,44 @@
     font-size: 0.8em; color: var(--accent); font-weight: 500;
   }
   .resort-card .visit-link:hover { text-decoration: underline; }
+
+  .resort-media {
+    margin: -24px -24px 16px -24px;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+  }
+  .resort-media img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .resort-card:hover .resort-media img {
+    transform: scale(1.05);
+  }
+  .resort-map {
+    margin: 12px -8px -8px -8px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .resort-map iframe {
+    width: 100%;
+    height: 180px;
+    border: 0;
+    filter: invert(0.9) hue-rotate(180deg) brightness(1.1) contrast(0.9);
+  }
+  .resort-map-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78em;
+    color: var(--muted);
+    margin-top: 12px;
+    margin-bottom: 4px;
+  }
+
   
   .budget-tracker {
     background: var(--card); border: 1px solid var(--border);
@@ -609,6 +647,7 @@
   <div id="tab-spain" class="tab-content active">
     <div class="resort-grid">
       <div class="resort-card">
+        <div class="resort-media"><img src="img/zafiro-alcudia.jpg" alt="Zafiro Palace Alcudia" loading="lazy"></div>
         <div class="ribbon">Top Pick</div>
         <div class="country-flag">🇪🇸</div>
         <h4><a href="https://www.zafirohotels.com/en/hotels/mallorca/zafiro-palace-alcudia/" target="_blank" rel="noopener">Zafiro Palace Alcudia</a></h4>
@@ -628,9 +667,12 @@
         <div class="price-note">Family of 3 · AI · 8 nights via TUI/Sunweb</div>
         <div class="flight-time">✈️ ~2h from Brussels</div>
         <a href="https://www.zafirohotels.com/en/hotels/mallorca/zafiro-palace-alcudia/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Alcudia Bay, Mallorca</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=3.1016,39.833099999999995,3.1416,39.8731&amp;layer=mapnik&amp;marker=39.8531,3.1216" loading="lazy" title="Map: Zafiro Palace Alcudia"></iframe></div>
       </div>
 
       <div class="resort-card">
+        <div class="resort-media"><img src="img/iberostar-alcudia.jpg" alt="Iberostar Selection Alcudia Park" loading="lazy"></div>
         <div class="country-flag">🇪🇸</div>
         <h4><a href="https://www.iberostar.com/en/hotels/mallorca/iberostar-selection-alcudia-park/" target="_blank" rel="noopener">Iberostar Selection Alcudia Park</a></h4>
         <div class="location">Alcudia, Mallorca · 2h flight</div>
@@ -649,9 +691,12 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~2h from Brussels</div>
         <a href="https://www.iberostar.com/en/hotels/mallorca/iberostar-selection-alcudia-park/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Alcudia, Mallorca</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=3.098,39.830499999999994,3.138,39.8705&amp;layer=mapnik&amp;marker=39.8505,3.118" loading="lazy" title="Map: Iberostar Selection Alcudia Park"></iframe></div>
       </div>
 
       <div class="resort-card">
+        <div class="resort-media"><img src="img/portaventura-gold-river.jpg" alt="PortAventura Hotel Gold River" loading="lazy"></div>
         <div class="country-flag">🇪🇸</div>
         <h4><a href="https://www.universalhotels.es/en/hotel-port-aventura-gold-river" target="_blank" rel="noopener">PortAventura Hotel Gold River</a></h4>
         <div class="location">PortAventura World, Tarragona · 2h flight</div>
@@ -669,6 +714,8 @@
         <div class="price-note">Family of 3 · HB + park · 8 nights</div>
         <div class="flight-time">✈️ ~2h to Reus/Barcelona</div>
         <a href="https://www.portaventuraworld.com/en/hotels" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Salou, Tarragona</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=1.1363,41.067299999999996,1.1763000000000001,41.1073&amp;layer=mapnik&amp;marker=41.0873,1.1563" loading="lazy" title="Map: PortAventura Hotel Gold River"></iframe></div>
       </div>
     </div>
   </div>
@@ -677,6 +724,7 @@
   <div id="tab-greece" class="tab-content">
     <div class="resort-grid">
       <div class="resort-card">
+        <div class="resort-media"><img src="img/grecotel-marine-palace.jpg" alt="Grecotel Marine Palace" loading="lazy"></div>
         <div class="ribbon">Best Water Park</div>
         <div class="country-flag">🇬🇷</div>
         <h4><a href="https://www.grecotel.com/marine-palace-aqua-park/" target="_blank" rel="noopener">Grecotel Marine Palace & Aqua Park</a></h4>
@@ -696,9 +744,12 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~3h from Brussels</div>
         <a href="https://www.grecotel.com/marine-palace-aqua-park/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Panormo, Crete</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=24.673000000000002,35.394,24.713,35.434000000000005&amp;layer=mapnik&amp;marker=35.414,24.693" loading="lazy" title="Map: Grecotel Marine Palace"></iframe></div>
       </div>
 
       <div class="resort-card">
+        <div class="resort-media"><img src="img/atlantica-aegean-blue.jpg" alt="Atlantica Aegean Blue" loading="lazy"></div>
         <div class="country-flag">🇬🇷</div>
         <h4><a href="https://www.atlanticahotels.com/hotels/atlantica-aegean-blue" target="_blank" rel="noopener">Atlantica Aegean Blue</a></h4>
         <div class="location">Rhodes · 3h flight</div>
@@ -717,9 +768,12 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~3h from Brussels</div>
         <a href="https://www.atlanticahotels.com/hotels/atlantica-aegean-blue" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Rhodes, Greece</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=28.1753,36.344500000000004,28.2553,36.4245&amp;layer=mapnik&amp;marker=36.3845,28.2153" loading="lazy" title="Map: Atlantica Aegean Blue"></iframe></div>
       </div>
 
       <div class="resort-card">
+        <div class="resort-media"><img src="img/stella-palace.jpg" alt="Stella Palace Aqua Park" loading="lazy"></div>
         <div class="country-flag">🇬🇷</div>
         <h4><a href="https://www.stellapalace.gr/" target="_blank" rel="noopener">Stella Palace Aqua Park Resort</a></h4>
         <div class="location">Hersonissos, Crete · 3h flight</div>
@@ -738,9 +792,12 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~3h from Brussels</div>
         <a href="https://www.stellapalace.gr/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Hersonissos, Crete</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=25.367,35.294,25.407,35.334&amp;layer=mapnik&amp;marker=35.314,25.387" loading="lazy" title="Map: Stella Palace Aqua Park"></iframe></div>
       </div>
 
       <div class="resort-card">
+        <div class="resort-media"><img src="img/blue-lagoon-kos.jpg" alt="Blue Lagoon Resort" loading="lazy"></div>
         <div class="country-flag">🇬🇷</div>
         <h4><a href="https://www.bluelagoonresort.gr/" target="_blank" rel="noopener">Blue Lagoon Resort</a></h4>
         <div class="location">Kos · 3h flight</div>
@@ -759,6 +816,8 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~3h from Brussels</div>
         <a href="https://www.bluelagoonresort.gr/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Kos, Greece</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=26.937,36.8117,27.017,36.8917&amp;layer=mapnik&amp;marker=36.8517,26.977" loading="lazy" title="Map: Blue Lagoon Resort"></iframe></div>
       </div>
     </div>
   </div>
@@ -767,6 +826,7 @@
   <div id="tab-portugal" class="tab-content">
     <div class="resort-grid">
       <div class="resort-card">
+        <div class="resort-media"><img src="img/grande-real-santa-eulalia.jpg" alt="Grande Real Santa Eulalia" loading="lazy"></div>
         <div class="ribbon">Foodie Pick</div>
         <div class="country-flag">🇵🇹</div>
         <h4><a href="https://www.realhotelsgroup.com/en/grande-real-santa-eulalia-resort-hotel-spa" target="_blank" rel="noopener">Grande Real Santa Eulalia</a></h4>
@@ -786,9 +846,12 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~2.5h from Brussels</div>
         <a href="https://www.realhotelsgroup.com/en/grande-real-santa-eulalia-resort-hotel-spa" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Albufeira, Algarve</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-8.227,37.067,-8.187000000000001,37.107000000000006&amp;layer=mapnik&amp;marker=37.087,-8.207" loading="lazy" title="Map: Grande Real Santa Eulalia"></iframe></div>
       </div>
 
       <div class="resort-card">
+        <div class="resort-media"><img src="img/aquashow-park.jpg" alt="Aquashow Park Hotel" loading="lazy"></div>
         <div class="country-flag">🇵🇹</div>
         <h4><a href="https://www.aquashowparkhotel.com/en/" target="_blank" rel="noopener">Aquashow Park Hotel</a></h4>
         <div class="location">Quarteira, Algarve · 2.5h flight</div>
@@ -806,6 +869,8 @@
         <div class="price-note">Family of 3 · HB + park · 8 nights</div>
         <div class="flight-time">✈️ ~2.5h from Brussels</div>
         <a href="https://www.aquashowparkhotel.com/en/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Quarteira, Algarve</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-8.126999999999999,37.050999999999995,-8.087,37.091&amp;layer=mapnik&amp;marker=37.071,-8.107" loading="lazy" title="Map: Aquashow Park Hotel"></iframe></div>
       </div>
     </div>
   </div>
@@ -814,6 +879,7 @@
   <div id="tab-italy" class="tab-content">
     <div class="resort-grid">
       <div class="resort-card">
+        <div class="resort-media"><img src="img/forte-village.jpg" alt="Forte Village Resort" loading="lazy"></div>
         <div class="ribbon">Premium</div>
         <div class="country-flag">🇮🇹</div>
         <h4><a href="https://www.fortevillageresort.com/en/" target="_blank" rel="noopener">Forte Village Resort</a></h4>
@@ -832,9 +898,12 @@
         <div class="price-note">Family of 3 · HB · 8 nights (higher end)</div>
         <div class="flight-time">✈️ ~2h from Brussels</div>
         <a href="https://www.fortevillageresort.com/en/" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 South Sardinia</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=8.925,38.907999999999994,8.965,38.948&amp;layer=mapnik&amp;marker=38.928,8.945" loading="lazy" title="Map: Forte Village Resort"></iframe></div>
       </div>
 
       <div class="resort-card">
+        <div class="resort-media"><img src="img/voi-arenella.jpg" alt="VOI Arenella Resort" loading="lazy"></div>
         <div class="country-flag">🇮🇹</div>
         <h4><a href="https://www.voihotels.com/en/resort/voi-arenella-resort" target="_blank" rel="noopener">VOI Arenella Resort</a></h4>
         <div class="location">Syracuse, Sicily · 2.5h flight</div>
@@ -853,6 +922,8 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~2.5h from Brussels</div>
         <a href="https://www.voihotels.com/en/resort/voi-arenella-resort" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Syracuse, Sicily</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=15.272,37.023999999999994,15.312,37.064&amp;layer=mapnik&amp;marker=37.044,15.292" loading="lazy" title="Map: VOI Arenella Resort"></iframe></div>
       </div>
     </div>
   </div>
@@ -861,6 +932,7 @@
   <div id="tab-other" class="tab-content">
     <div class="resort-grid">
       <div class="resort-card">
+        <div class="resort-media"><img src="img/falkensteiner-borik.jpg" alt="Falkensteiner Club Funimation Borik" loading="lazy"></div>
         <div class="ribbon">Best for Babies</div>
         <div class="country-flag">🇭🇷</div>
         <h4><a href="https://www.falkensteiner.com/en/hotel/funimation-borik" target="_blank" rel="noopener">Falkensteiner Club Funimation Borik</a></h4>
@@ -879,9 +951,12 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~2h from Brussels</div>
         <a href="https://www.falkensteiner.com/en/hotel/funimation-borik" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Zadar, Croatia</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=15.207,44.0986,15.247,44.138600000000004&amp;layer=mapnik&amp;marker=44.1186,15.227" loading="lazy" title="Map: Falkensteiner Club Funimation Borik"></iframe></div>
       </div>
 
       <div class="resort-card">
+        <div class="resort-media"><img src="img/db-seabank-malta.jpg" alt="db Seabank Resort" loading="lazy"></div>
         <div class="country-flag">🇲🇹</div>
         <h4><a href="https://www.dbhotelsresorts.com/seabank-hotel" target="_blank" rel="noopener">db Seabank Resort & Spa</a></h4>
         <div class="location">Mellieħa, Malta · 2.5h flight</div>
@@ -900,9 +975,12 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~2.5h from Brussels</div>
         <a href="https://www.dbhotelsresorts.com/seabank-hotel" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Mellieħa, Malta</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=14.336,35.942,14.376,35.982000000000006&amp;layer=mapnik&amp;marker=35.962,14.356" loading="lazy" title="Map: db Seabank Resort"></iframe></div>
       </div>
 
       <div class="resort-card">
+        <div class="resort-media"><img src="img/atlantica-aeneas-cyprus.jpg" alt="Atlantica Aeneas Resort" loading="lazy"></div>
         <div class="country-flag">🇨🇾</div>
         <h4><a href="https://www.atlanticahotels.com/hotels/atlantica-aeneas-resort" target="_blank" rel="noopener">Atlantica Aeneas Resort</a></h4>
         <div class="location">Ayia Napa, Cyprus · 4h flight</div>
@@ -920,6 +998,8 @@
         <div class="price-note">Family of 3 · AI · 8 nights</div>
         <div class="flight-time">✈️ ~4h from Brussels (longer)</div>
         <a href="https://www.atlanticahotels.com/hotels/atlantica-aeneas-resort" target="_blank" rel="noopener" class="visit-link">🔗 Visit resort website →</a>
+        <div class="resort-map-label">📍 Ayia Napa, Cyprus</div>
+        <div class="resort-map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=33.937999999999995,34.968999999999994,33.978,35.009&amp;layer=mapnik&amp;marker=34.989,33.958" loading="lazy" title="Map: Atlantica Aeneas Resort"></iframe></div>
       </div>
     </div>
     <p style="color: var(--muted); font-size: 0.85em; margin-top: 12px;">
